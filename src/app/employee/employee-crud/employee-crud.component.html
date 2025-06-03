@@ -1,0 +1,102 @@
+<div class="container mt-4">
+  <h2>Employee CRUD with NgRx</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <label>Name</label>
+        <input
+          formControlName="name"
+          class="form-control mb-2"
+          placeholder="Enter name"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label>Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control mb-2"
+          placeholder="Enter email"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label>Phone Number</label>
+        <input
+          formControlName="mobile"
+          class="form-control mb-2"
+          placeholder="Enter phone number"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label>Date of Birth</label>
+        <input type="date" formControlName="dob" class="form-control mb-2" />
+      </div>
+
+      <div class="col-md-4">
+        <label>Date of Joining</label>
+        <input type="date" formControlName="doj" class="form-control mb-2" />
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">
+          {{ isEdit ? "Update Employee" : "Add Employee" }}
+        </button>
+        <button
+          *ngIf="isEdit"
+          type="button"
+          class="btn btn-secondary"
+          (click)="reset()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Employee List</h5>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Date of Birth</th>
+            <th>Date of Joining</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employees$ | async">
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.email }}</td>
+            <td>{{ emp.mobile }}</td>
+            <td>{{ emp.dob }}</td>
+            <td>{{ emp.doj }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-outline-primary me-1"
+                (click)="edit(emp)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="delete(emp.id!)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
